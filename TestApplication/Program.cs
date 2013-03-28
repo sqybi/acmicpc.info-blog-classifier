@@ -11,7 +11,8 @@ namespace TestApplication
     {
         static void Main(string[] args)
         {
-            Article article = ArticleQuerier.Query(QueryDataset.TrainDataset, 1);
+            ArticleQuerier querier = new ArticleQuerier(QueryDataset.TrainDataset);
+            Article article = querier.Query(1);
             Console.WriteLine(article.Title);
             Console.WriteLine(article.PlainText);
             Console.ReadKey();

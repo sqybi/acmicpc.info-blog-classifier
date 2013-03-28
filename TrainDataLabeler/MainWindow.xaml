@@ -1,7 +1,7 @@
 ﻿<Window x:Class="TrainDataLabeler.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="600" Width="800">
+        Title="Train Data Labeler" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
@@ -37,17 +37,44 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
-            
+            <Label Grid.Column="1">
+                Document: 0
+            </Label>
+            <Label Grid.Column="3">
+                Type: Not Specified
+            </Label>
+            <Label Grid.Column="5">
+                Mark as:
+            </Label>
+            <Button Grid.Column="7">
+                ACM (1)
+            </Button>
+            <Button Grid.Column="9">
+                Technology (2)
+            </Button>
+            <Button Grid.Column="11">
+                Others (3)
+            </Button>
+            <Button Grid.Column="13">
+                Previous (-)
+            </Button>
+            <Button Grid.Column="15">
+                Next (+)
+            </Button>
         </Grid>
     </Grid>
 </Window>
