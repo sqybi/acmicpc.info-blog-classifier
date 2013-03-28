@@ -15,6 +15,50 @@ namespace ArticleQuery
         private static IHtmlPlainTextExtractor defaultExtractor = new HtmlAgilityPackPlainTextExtractor();
 
         /// <summary>
+        /// Query all articles in specific dataset
+        /// </summary>
+        /// <param name="dataset">The query dataset</param>
+        /// <returns>List of articles</returns>
+        public static List<Article> Query(QueryDataset dataset)
+        {
+            return Query(dataset, defaultExtractor);
+        }
+
+        /// <summary>
+        /// Query all articles in specific dataset, and use a given extractor as the HTML extractor
+        /// </summary>
+        /// <param name="dataset">The query dataset</param>
+        /// <param name="extractor">The plain text extractor for article</param>
+        /// <returns>List of articles</returns>
+        public static List<Article> Query(QueryDataset dataset, IHtmlPlainTextExtractor extractor)
+        {
+            List<Article> articles = new List<Article>();
+
+            // Generate dataset path
+            string datasetPath;
+            switch (dataset)
+            {
+                case QueryDataset.TrainDataset:
+                    datasetPath = Path.Combine(General.Constants.DatasetPath, General.Constants.TrainDatasetDir);
+                    break;
+                case QueryDataset.TestDataset:
+                    datasetPath = Path.Combine(General.Constants.DatasetPath, General.Constants.TestDatasetDir);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            string[] files = Directory.GetFiles(datasetPath);
+
+            for (int i = 0; i < files.Length; ++i)
+            {
+                articles.Add(Query(dataset, i, extractor));
+            }
+
+            return articles;
+        }
+
+        /// <summary>
         /// Query an article with given ID in specific dataset
         /// </summary>
         /// <param name="dataset">The query dataset</param>
@@ -25,7 +69,14 @@ namespace ArticleQuery
             return Query(dataset, id, defaultExtractor);
         }
 
-        private static Article Query(QueryDataset dataset, int id, IHtmlPlainTextExtractor extractor)
+        /// <summary>
+        /// Query an article with given ID in specific dataset, and use a given extractor as the HTML extractor
+        /// </summary>
+        /// <param name="dataset">The query dataset</param>
+        /// <param name="id">The ID of article</param>
+        /// <param name="extractor">The plain text extractor for article</param>
+        /// <returns>The article</returns>
+        public static Article Query(QueryDataset dataset, int id, IHtmlPlainTextExtractor extractor)
         {
             string title;
             string summary;
