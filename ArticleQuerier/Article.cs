@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ArticleQuery
 {
+    /// <summary>
+    /// An article with complete information, including title, summary, etc.
+    /// </summary>
     public class Article
     {
         #region Variables
@@ -16,7 +19,7 @@ namespace ArticleQuery
         public string Title
         {
             get;
-            set;
+            protected set;
         }
 
         /// <summary>
@@ -25,7 +28,7 @@ namespace ArticleQuery
         public string PlainText
         {
             get;
-            private set;
+            protected set;
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace ArticleQuery
             {
                 return htmlText;
             }
-            set
+            protected set
             {
                 htmlText = value;
                 if (htmlPlainTextExtractor == null)
@@ -79,26 +82,85 @@ namespace ArticleQuery
         }
         protected IHtmlPlainTextExtractor htmlPlainTextExtractor;
 
+        /// <summary>
+        /// Type of article
+        /// </summary>
         public ArticleType Type
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The real file path of article title
+        /// </summary>
+        public string TitlePath
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// The real file path of article summary
+        /// </summary>
+        public string SummaryPath
+        {
+            get;
+            protected set;
+        }
+
+        /// <summary>
+        /// The real file path of article type
+        /// </summary>
+        public string TypePath
+        {
+            get;
+            protected set;
+        }
+
         #endregion
 
         #region Constructors
 
-        public Article(IHtmlPlainTextExtractor htmlPlainTextExtractor)
+        /// <summary>
+        /// An empty article with given HTML extractor
+        /// </summary>
+        /// <param name="htmlPlainTextExtractor">The specified HTML extractor</param>
+        protected Article(IHtmlPlainTextExtractor htmlPlainTextExtractor)
+            : this(htmlPlainTextExtractor, "", "")
         {
-            this.htmlPlainTextExtractor = htmlPlainTextExtractor;
         }
 
+        /// <summary>
+        /// An article with given HTML extractor, title, HTML text and article type
+        /// </summary>
+        /// <param name="htmlPlainTextExtractor">The specified HTML extractor</param>
+        /// <param name="title">Title of article</param>
+        /// <param name="htmlText">HTML text of article</param>
+        /// <param name="type">Type of article</param>
         public Article(IHtmlPlainTextExtractor htmlPlainTextExtractor, string title, string htmlText, ArticleType type = ArticleType.NotSpecified)
+            : this(htmlPlainTextExtractor, title, htmlText, "", "", "", type)
+        {
+        }
+
+        /// <summary>
+        /// An article with given HTML extractor, title, HTML text and article type
+        /// </summary>
+        /// <param name="htmlPlainTextExtractor">The specified HTML extractor</param>
+        /// <param name="title">Title of article</param>
+        /// <param name="htmlText">HTML text of article</param>
+        /// <param name="titlePath">File path of title</param>
+        /// <param name="summaryPath">File path of summary</param>
+        /// <param name="typePath">File path of type</param>
+        /// <param name="type">Type of article</param>
+        public Article(IHtmlPlainTextExtractor htmlPlainTextExtractor, string title, string htmlText, string titlePath, string summaryPath, string typePath, ArticleType type = ArticleType.NotSpecified)
         {
             this.htmlPlainTextExtractor = htmlPlainTextExtractor;
             this.Title = title;
             this.HtmlText = htmlText;
+            this.TitlePath = titlePath;
+            this.SummaryPath = summaryPath;
+            this.TypePath = typePath;
             this.Type = type;
         }
 

@@ -1,7 +1,7 @@
-﻿<Window x:Class="TrainDataLabeler.MainWindow"
+﻿<Window x:Name="labelWindow" x:Class="TrainDataLabeler.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Train Data Labeler" Height="600" Width="800">
+        Title="Train Data Labeler" Height="768" Width="1024" KeyDown="LabelWindow_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="1" Content="Title" VerticalAlignment="Center" />
-            <TextBox Grid.Column="3" Name="titleTextBox" IsEnabled="False" VerticalAlignment="Center" />
+            <TextBox Grid.Column="3" x:Name="titleTextBox" IsReadOnly="True" VerticalAlignment="Center" />
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -29,7 +29,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="1" Name="summaryTextBox" IsEnabled="False" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0" />
+            <TextBox Grid.Column="1" x:Name="summaryTextBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0" />
         </Grid>
         <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
@@ -51,28 +51,26 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="1">
-                Document: 0
-            </Label>
-            <Label Grid.Column="3">
-                Type: Not Specified
+            <TextBox x:Name="articleIDTextBox" Grid.Column="1" Width="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="articleIDTextBox_KeyDown"></TextBox>
+            <Label x:Name="articleTypeLabel" Grid.Column="3">
+                Not Specified
             </Label>
             <Label Grid.Column="5">
                 Mark as:
             </Label>
-            <Button Grid.Column="7">
+            <Button x:Name="markAsACMButton" Grid.Column="7" Click="markAsACMButton_Click">
                 ACM (1)
             </Button>
-            <Button Grid.Column="9">
+            <Button x:Name="markAsTechnologyButton" Grid.Column="9" Click="markAsTechnologyButton_Click">
                 Technology (2)
             </Button>
-            <Button Grid.Column="11">
+            <Button x:Name="markAsOthersButton" Grid.Column="11" Click="markAsOthersButton_Click">
                 Others (3)
             </Button>
-            <Button Grid.Column="13">
+            <Button x:Name="previousButton" Grid.Column="13" Click="previousButton_Click">
                 Previous (-)
             </Button>
-            <Button Grid.Column="15">
+            <Button x:Name="nextButton" Grid.Column="15" Click="nextButton_Click">
                 Next (+)
             </Button>
         </Grid>

@@ -141,18 +141,25 @@ namespace ArticleQuery
             // Read marked type
             try
             {
-                FileStream typeFileStream = new FileStream(typeFilePath, FileMode.Open, FileAccess.Read);
-                StreamReader typeFileStreamReader = new StreamReader(typeFileStream);
-                string typeString = typeFileStreamReader.ReadToEnd();
-                typeFileStreamReader.Close();
-                int typeInt = Convert.ToInt32(typeString);
-                if (Enum.IsDefined(typeof(ArticleType), typeInt))
+                if (File.Exists(typeFilePath))
                 {
-                    type = (ArticleType)typeInt;
+                    FileStream typeFileStream = new FileStream(typeFilePath, FileMode.Open, FileAccess.Read);
+                    StreamReader typeFileStreamReader = new StreamReader(typeFileStream);
+                    string typeString = typeFileStreamReader.ReadToEnd();
+                    typeFileStreamReader.Close();
+                    int typeInt = Convert.ToInt32(typeString);
+                    if (Enum.IsDefined(typeof(ArticleType), typeInt))
+                    {
+                        type = (ArticleType)typeInt;
+                    }
+                    else
+                    {
+                        throw new FormatException();
+                    }
                 }
                 else
                 {
-                    throw new FormatException();
+                    type = ArticleType.NotSpecified;
                 }
             }
             catch (Exception)
@@ -162,7 +169,10 @@ namespace ArticleQuery
             }
 
             // Construct article
-            Article article = new Article(extractor, title, summary, type);
+            Article article = new Article(extractor,
+                title, summary,
+                titleFilePath, summaryFilePath, typeFilePath,
+                type);
 
             return article;
         }

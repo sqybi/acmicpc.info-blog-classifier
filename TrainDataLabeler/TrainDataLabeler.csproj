@@ -93,6 +93,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArticleQuerier\ArticleQuery.csproj">
+      <Project>{1d02909b-e3fb-4d50-a511-627673336669}</Project>
+      <Name>ArticleQuery</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\General\General.csproj">
+      <Project>{a3c1e047-51b2-4326-8838-80b29e3f6f12}</Project>
+      <Name>General</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
