@@ -52,7 +52,7 @@
                 <ColumnDefinition Width="10" />
             </Grid.ColumnDefinitions>
             <TextBox x:Name="articleIDTextBox" Grid.Column="1" Width="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyDown="articleIDTextBox_KeyDown"></TextBox>
-            <Label x:Name="articleTypeLabel" Grid.Column="3">
+            <Label x:Name="articleTypeLabel" Grid.Column="3" BorderThickness="1" BorderBrush="Red">
                 Not Specified
             </Label>
             <Label Grid.Column="5">

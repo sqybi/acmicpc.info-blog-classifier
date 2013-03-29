@@ -184,15 +184,29 @@ namespace TrainDataLabeler
                 titleTextBox.Text = "";
                 summaryTextBox.Text = "";
                 articleIDTextBox.Text = "-1";
-                articleTypeLabel.Content = "NotSpecified";
+                RefreshArticleType(ArticleType.NotSpecified);
             }
             else
             {
                 Article article = articles[articleID];
+
                 titleTextBox.Text = article.Title;
                 summaryTextBox.Text = article.PlainText;
                 articleIDTextBox.Text = articleID.ToString();
-                articleTypeLabel.Content = Enum.GetName(article.Type.GetType(), article.Type);
+                RefreshArticleType(article.Type);
+            }
+        }
+
+        private void RefreshArticleType(ArticleType type)
+        {
+            articleTypeLabel.Content = Enum.GetName(type.GetType(), type);
+            if (type == ArticleType.NotSpecified)
+            {
+                articleTypeLabel.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                articleTypeLabel.BorderBrush = Brushes.Green;
             }
         }
 
@@ -213,7 +227,7 @@ namespace TrainDataLabeler
                     typeFileStreamWriter.Close();
                     
                     article.Type = type;
-                    articleTypeLabel.Content = Enum.GetName(article.Type.GetType(), article.Type);
+                    RefreshArticleType(type);
                 }
                 catch (IOException)
                 {
